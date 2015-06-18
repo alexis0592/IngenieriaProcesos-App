@@ -1,41 +1,45 @@
-package co.edu.ubicameudea;
+package co.edu.ubicameudea.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import co.edu.ubicameudea.activities.UdeaMapActivity;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import co.edu.ubicameudea.activities.UdeaMapActivity;
+import java.util.ArrayList;
+import java.util.List;
 
+import co.edu.ubicameudea.R;
 
-public class MainActivity extends ActionBarActivity {
+public class AdvancedSearchActivity extends ActionBarActivity {
 
-    private ImageView imgMapButton;
+    private Spinner facultieSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_advanced_search);
         initComponents();
     }
 
-    public void initComponents(){
-        this.imgMapButton = (ImageView)super.findViewById(R.id.goMapButton);
+    public void initComponents() {
+        this.facultieSpinner = (Spinner) super.findViewById(R.id.faculties_spinner);
+        String[] faculties = {"Facultad", "Ingenieria", "Medicina", "Educación"};
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.faculties_array, R.layout.support_simple_spinner_dropdown_item);
+
+        this.facultieSpinner.setAdapter(adapter);
+
     }
 
-    public void viewMapClick(View view){
-        UdeaMapActivity mapActivity = new UdeaMapActivity();
-        startActivity(new Intent(this, mapActivity.getClass()));
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_advanced_search, menu);
         return true;
     }
 
@@ -50,7 +54,6 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

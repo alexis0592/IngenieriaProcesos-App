@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.*;
 
 import co.edu.ubicameudea.R;
 
-public class UdeaMapActivity extends Activity implements OnMapReadyCallback{
+public class UdeaMapActivity extends Activity implements OnMapReadyCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class UdeaMapActivity extends Activity implements OnMapReadyCallback{
 
     @Override
     public void onMapReady(GoogleMap map) {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-18.142, 178.431), 2));
-
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(6.268267, -75.568064), 18));
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
     }
 }
