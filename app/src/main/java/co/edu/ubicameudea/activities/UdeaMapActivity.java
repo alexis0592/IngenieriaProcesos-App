@@ -50,5 +50,7 @@ public class UdeaMapActivity extends Activity implements OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(6.268267, -75.568064), 18));
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        map.setMyLocationEnabled(true);
+        map.addMarker(new MarkerOptions().position(new LatLng(6.267634,  -75.567612)).title("18-325"));
     }
 }
