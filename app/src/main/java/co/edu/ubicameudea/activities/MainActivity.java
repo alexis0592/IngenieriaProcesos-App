@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.List;
@@ -21,12 +22,15 @@ import co.edu.ubicameudea.activities.UdeaMapActivity;
 import co.edu.ubicameudea.activities.UdeaMapActivity;
 import co.edu.ubicameudea.database.sqlite.AccessorSQLiteOpenHelper;
 import co.edu.ubicameudea.domain.process.impl.BloqueProcessImpl;
+import co.edu.ubicameudea.domain.process.impl.UbicacionProcessImpl;
 import co.edu.ubicameudea.model.dto.Bloque;
+import co.edu.ubicameudea.model.dto.Ubicacion;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private ImageView imgMapButton;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,11 @@ public class MainActivity extends ActionBarActivity {
     public void initComponents(){
         BloqueProcessImpl bloqueProcess = new BloqueProcessImpl(this.getApplicationContext());
         this.imgMapButton = (ImageView)super.findViewById(R.id.goMapButton);
+        this.editText = (EditText)super.findViewById(R.id.editTextsearch);
+        this.editText.setTextColor(Color.parseColor("#FFFFFF"));
         List<Bloque> listBloque = bloqueProcess.findAllBloques();
+        UbicacionProcessImpl ubicacionProcess = new UbicacionProcessImpl(this.getApplicationContext());
+        Ubicacion u = ubicacionProcess.finUbicacionByBloqAndOffice("19", "201");
     }
 
 

@@ -3,6 +3,7 @@ package co.edu.ubicameudea.domain.process.impl;
 import android.content.ContentValues;
 import android.content.Context;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,20 +29,27 @@ public class UbicacionProcessImpl implements IUbicacionProcess {
     @Override
     public Ubicacion finUbicacionByBloqAndOffice(String bloq, String office) {
 
-        List<Ubicacion> ubicacionList = new ArrayList<Ubicacion>();
+        Ubicacion ubicacion = new Ubicacion();
 
         List<ContentValues> contentValuesList = this.ubicacionDAO.findUbicationByBloqueAndOffice(bloq, office);
 
-        for (ContentValues contentValues : contentValuesList) {
-
+        for(ContentValues contentValue:contentValuesList) {
+            try {
+                ubicacion = convertContentValueToUbicacion(contentValue);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
-        return null;
+        return ubicacion;
     }
 
-    private Ubicacion convertContentValueToUbicacion(ContentValues contentValues) {
+    private Ubicacion convertContentValueToUbicacion(ContentValues contentValues) throws ParseException{
         Ubicacion ubicacion = new Ubicacion();
 
-        return null;
+        ubicacion.setLatitud(Double.parseDouble(contentValues.getAsString(UbicacionContract.Column.LATITUD)));
+        ubicacion.setLongitud(Double.parseDouble(contentValues.getAsString(UbicacionContract.Column.LONGITUD)));
+
+        return ubicacion;
     }
 }

@@ -42,11 +42,15 @@ public class UbicacionDAO implements IUbicacionDAO {
         Log.i(TAG, "findUbicationByBloqueAndOffice");
 
         SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(String.format("SELECT * FROM %s, %s WHERE %s = %s AND %s == ? AND %s == ?",
-                UbicacionContract.TABLE_NAME, BloqueContract.TABLE_NAME, UbicacionContract.Column.BLOQUE_ID ,
-                BloqueContract.Column.ID_BLOQUE, BloqueContract.Column.NUMERO, UbicacionContract.Column.OFICINA),
-                new String[]{bloque, numOffice});
-        List<ContentValues> contentValuesList = this.cursorToContentValues(cursor, null);
+
+        String query = String.format("SELECT %s, %s FROM %s, %s WHERE %s = %s AND %s == %s AND %s == %s",
+                UbicacionContract.Column.LATITUD, UbicacionContract.Column.LONGITUD, UbicacionContract.TABLE_NAME,
+                BloqueContract.TABLE_NAME, UbicacionContract.Column.BLOQUE_ID, BloqueContract.Column.ID_BLOQUE,
+                BloqueContract.Column.NUMERO,bloque, UbicacionContract.Column.OFICINA, numOffice);
+
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+        String[]columns = new String[]{UbicacionContract.Column.LATITUD, UbicacionContract.Column.LONGITUD};
+        List<ContentValues> contentValuesList = this.cursorToContentValues(cursor, columns);
 
         cursor.close();
 
@@ -60,10 +64,6 @@ public class UbicacionDAO implements IUbicacionDAO {
         if ((cursor == null) || (cursor.isClosed())) {
 
             return (contentValuesList);
-        }
-
-        if (columns == null){
-            columns = UbicacionContract.Column.getAllColumns();
         }
 
         ContentValues contentValues = null;
