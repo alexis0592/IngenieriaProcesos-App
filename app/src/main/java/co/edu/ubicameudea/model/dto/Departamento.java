@@ -5,20 +5,20 @@ package co.edu.ubicameudea.model.dto;
  */
 public class Departamento {
 
-    private int departamentoId;
+    private int idDepartamento;
     private String nombre;
     private Unidad unidad;
 
-    private Departamento(){
+    public Departamento(){
         super();
     }
 
     public int getDepartamentoId() {
-        return departamentoId;
+        return idDepartamento;
     }
 
     public void setDepartamentoId(int departamentoId) {
-        this.departamentoId = departamentoId;
+        this.idDepartamento = departamentoId;
     }
 
     public Unidad getUnidad() {

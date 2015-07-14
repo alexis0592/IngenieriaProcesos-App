@@ -11,13 +11,62 @@
 
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <Spinner
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/faculties_spinner" />
+            android:text="@string/message_seleccione_filtros"
+            android:padding="3dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_tipo_unidad"
+            android:padding="3dp"/>
+
+        <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/advanced_search_spnTipoUnidad"
+            android:padding="3dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_unidades"
+            android:padding="3dp"/>
+
+        <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/advanced_search_spnUnidades"
+            android:padding="3dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_departamentos"
+            android:padding="3dp"/>
+
+        <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/advanced_search_spnDepartamentos"
+            android:padding="3dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_bloques"
+            android:padding="3dp"/>
+
+        <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/advanced_search_spnBloques"
+            android:padding="3dp"/>
     </LinearLayout>
 </LinearLayout>

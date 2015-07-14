@@ -13,7 +13,7 @@ public class UbicacionContract extends PersistanceContract {
 
     public static final class Column {
         public static final String ID_UBICACION = "id_ubicacion";
-        public static final String BLOQUE_ID = "bloque_id";
+        public static final String ID_BLOQUE = "id_bloque";
         public static final String OFICINA = "oficina";
         public static final String LATITUD = "latitud";
         public static final String LONGITUD = "longitud";
@@ -25,7 +25,7 @@ public class UbicacionContract extends PersistanceContract {
         }
 
         public static final String[] getAllColumns() {
-            return (new String[]{ID_UBICACION, BLOQUE_ID, OFICINA, LATITUD, LONGITUD, ID_DEPARTAMENTO, ID_UNIDAD});
+            return (new String[]{ID_UBICACION, ID_BLOQUE, OFICINA, LATITUD, LONGITUD, ID_DEPARTAMENTO, ID_UNIDAD});
         }
 
     }

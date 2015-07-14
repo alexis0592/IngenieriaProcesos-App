@@ -5,4 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_udea_map">UdeaMapActivity</string>
     <string name="title_activity_advanced_search">AdvancedSearchActivity</string>
+    <string name="text_tipo_unidad">Tipo de unidad: *</string>
+    <string name="text_unidades">Unidades: *</string>
+    <string name="text_departamentos">Departamentos: </string>
+    <string name="text_bloques">Bloques:</string>
+    <string name="message_seleccione_filtros">Seleccione las opciones de búsqueda para encontrar una ubicación.</string>
 </resources>
