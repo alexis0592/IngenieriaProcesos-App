@@ -55,6 +55,27 @@ public class DepartamentoDAOImpl implements IDepartamentoDAO {
         return contentValuesList;
     }
 
+    @Override
+    public List<ContentValues> findByIdUnidad(int idUnidad){
+        Log.i(TAG, "findByIdUnidad");
+
+        SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
+
+        String query = String.format("SELECT * FROM %s WHERE %s = %s ORDER BY %s",
+                DepartamentoContract.TABLE_NAME,
+                DepartamentoContract.Column.ID_UNIDAD, idUnidad,
+                DepartamentoContract.Column.NOMBRE);
+
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        String[]columns = new String[]{ DepartamentoContract.Column.ID_DEPARTAMENTO,
+                DepartamentoContract.Column.NOMBRE, DepartamentoContract.Column.ID_UNIDAD };
+        List<ContentValues> contentValuesList = this.cursorToContentValues(cursor, columns);
+
+        cursor.close();
+
+        return contentValuesList;
+    }
+
 
     private List<ContentValues> cursorToContentValues(Cursor cursor, String[] columns){
         List<ContentValues> contentValuesList = new ArrayList<ContentValues>();

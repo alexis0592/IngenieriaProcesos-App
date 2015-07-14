@@ -50,7 +50,7 @@ public class BloqueProcessImpl implements IBloqueProcess {
         Bloque bloque = new Bloque();
 
         bloque.setIdBloque(Integer.parseInt(contentValues.getAsString(BloqueContract.Column.ID_BLOQUE)));
-        bloque.setNumBloque(Integer.parseInt(contentValues.getAsString(BloqueContract.Column.NUMERO)));
+        bloque.setNumBloque(contentValues.getAsString(BloqueContract.Column.NUMERO));
 
         return bloque;
     }

@@ -5,7 +5,7 @@ package co.edu.ubicameudea.model.dto;
  */
 public class Departamento {
 
-    private int idDepartamento;
+    private Integer idDepartamento;
     private String nombre;
     private Unidad unidad;
 
@@ -13,11 +13,11 @@ public class Departamento {
         super();
     }
 
-    public int getDepartamentoId() {
+    public Integer getDepartamentoId() {
         return idDepartamento;
     }
 
-    public void setDepartamentoId(int departamentoId) {
+    public void setDepartamentoId(Integer departamentoId) {
         this.idDepartamento = departamentoId;
     }
 

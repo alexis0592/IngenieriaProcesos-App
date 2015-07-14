@@ -10,4 +10,6 @@ import java.util.List;
 public interface IDepartamentoDAO {
 
     public List<ContentValues> findAll();
+
+    public List<ContentValues> findByIdUnidad(int idUnidad);
 }

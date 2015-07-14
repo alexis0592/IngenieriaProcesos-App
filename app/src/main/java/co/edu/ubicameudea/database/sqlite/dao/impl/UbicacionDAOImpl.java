@@ -56,6 +56,7 @@ public class UbicacionDAOImpl implements IUbicacionDAO {
         return contentValuesList;
     }
 
+    @Override
     public List<ContentValues> findUbicacion(int idUnidad, int idDepartamento, int idBloque){
         Log.i(TAG, "findUbicationByBloqueAndOffice");
 

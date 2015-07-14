@@ -43,7 +43,7 @@ public class TipoUnidadDAOImpl implements ITipoUnidadDAO{
         SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
 
         String query = String.format("SELECT * FROM %s ORDER BY %s",
-                TipoUnidadContract.Column.ID_TIPO_UNIDAD,
+                TipoUnidadContract.TABLE_NAME,
                 TipoUnidadContract.Column.NOMBRE);
 
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);

@@ -10,4 +10,6 @@ import co.edu.ubicameudea.model.dto.Departamento;
 public interface IDepartamentoProcess {
 
     public List<Departamento> findAll();
+
+    public List<Departamento> findByIdUnidad(int idUnidad);
 }

@@ -47,6 +47,24 @@ public class DepartamentoProcessImpl implements IDepartamentoProcess {
         return list;
     }
 
+    public List<Departamento> findByIdUnidad(int idUnidad){
+        Log.i(TAG, "findByIdUnidad");
+
+        List<Departamento> list = new ArrayList<Departamento>();
+        try {
+
+            List<ContentValues> contentValuesList = this.departamentoDAO.findByIdUnidad(idUnidad);
+
+            for (ContentValues contentValue : contentValuesList) {
+                list.add(this.convertContentValueToDto(contentValue));
+            }
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     private Departamento convertContentValueToDto(ContentValues contentValues) throws ParseException {
         Departamento departamento = new Departamento();
 

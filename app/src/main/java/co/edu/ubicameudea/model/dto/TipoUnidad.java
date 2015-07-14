@@ -5,18 +5,18 @@ package co.edu.ubicameudea.model.dto;
  */
 public class TipoUnidad {
 
-    private int idTipoUnidad;
+    private Integer idTipoUnidad;
     private String nombre;
 
     public TipoUnidad(){
         super();
     }
 
-    public int getIdTipoUnidad() {
+    public Integer getIdTipoUnidad() {
         return idTipoUnidad;
     }
 
-    public void setIdTipoUnidad(int idTipoUnidad) {
+    public void setIdTipoUnidad(Integer idTipoUnidad) {
         this.idTipoUnidad = idTipoUnidad;
     }
 

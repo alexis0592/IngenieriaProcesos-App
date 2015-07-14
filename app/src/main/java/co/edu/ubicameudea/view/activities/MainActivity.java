@@ -1,10 +1,7 @@
-package co.edu.ubicameudea.activities;
+package co.edu.ubicameudea.view.activities;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,11 +13,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 import co.edu.ubicameudea.R;
-import co.edu.ubicameudea.activities.AdvancedSearchActivity;
-import co.edu.ubicameudea.activities.UdeaMapActivity;
 
-import co.edu.ubicameudea.activities.UdeaMapActivity;
-import co.edu.ubicameudea.database.sqlite.AccessorSQLiteOpenHelper;
 import co.edu.ubicameudea.domain.process.impl.BloqueProcessImpl;
 import co.edu.ubicameudea.domain.process.impl.UbicacionProcessImpl;
 import co.edu.ubicameudea.model.dto.Bloque;
@@ -40,13 +33,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void initComponents(){
-        BloqueProcessImpl bloqueProcess = new BloqueProcessImpl(this.getApplicationContext());
+        //BloqueProcessImpl bloqueProcess = new BloqueProcessImpl(this.getApplicationContext());
         this.imgMapButton = (ImageView)super.findViewById(R.id.goMapButton);
         this.editText = (EditText)super.findViewById(R.id.editTextsearch);
         this.editText.setTextColor(Color.parseColor("#FFFFFF"));
-        List<Bloque> listBloque = bloqueProcess.findAllBloques();
-        UbicacionProcessImpl ubicacionProcess = new UbicacionProcessImpl(this.getApplicationContext());
-        Ubicacion u = ubicacionProcess.finUbicacionByBloqAndOffice("19", "201");
+        //List<Bloque> listBloque = bloqueProcess.findAllBloques();
+        //UbicacionProcessImpl ubicacionProcess = new UbicacionProcessImpl(this.getApplicationContext());
+        //Ubicacion u = ubicacionProcess.finUbicacionByBloqAndOffice("19", "201");
     }
 
 
