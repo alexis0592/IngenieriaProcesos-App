@@ -5,14 +5,14 @@
     android:padding="3dp">
 
     <TextView
-        android:id="@+id/item_tipo_unidad_txvId"
+        android:id="@+id/item_departamento_txvId"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="id"
         android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/item_tipo_unidad_txvNombre"
+        android:id="@+id/item_departamento_txvNombre"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="nombre"
