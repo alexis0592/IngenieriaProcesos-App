@@ -42,7 +42,7 @@ public class DepartamentoDAOImpl implements IDepartamentoDAO {
         SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
 
         String query = String.format("SELECT * FROM %s ORDER BY %s",
-                DepartamentoContract.Column.ID_DEPARTAMENTO,
+                DepartamentoContract.TABLE_NAME,
                 DepartamentoContract.Column.NOMBRE);
 
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
@@ -61,9 +61,10 @@ public class DepartamentoDAOImpl implements IDepartamentoDAO {
 
         SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
 
-        String query = String.format("SELECT * FROM %s WHERE %s = %s ORDER BY %s",
+        String query = String.format("SELECT * FROM %s WHERE %s = %s OR %s = %s ORDER BY %s",
                 DepartamentoContract.TABLE_NAME,
                 DepartamentoContract.Column.ID_UNIDAD, idUnidad,
+                DepartamentoContract.Column.ID_UNIDAD, -1,
                 DepartamentoContract.Column.NOMBRE);
 
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);

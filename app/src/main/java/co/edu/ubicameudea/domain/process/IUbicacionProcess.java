@@ -11,7 +11,7 @@ import co.edu.ubicameudea.model.dto.Unidad;
  */
 public interface IUbicacionProcess {
 
-    public Ubicacion finUbicacionByBloqAndOffice(String bloq, String office);
+    public Ubicacion finUbicacionByBloqAndOffice(int bloq, int office);
 
     public List<Ubicacion> findUbicacion(int idUnidad, int idDepartamento, int idBloque);
 

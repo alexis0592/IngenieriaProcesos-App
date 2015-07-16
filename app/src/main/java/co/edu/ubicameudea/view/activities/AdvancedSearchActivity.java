@@ -1,5 +1,6 @@
 package co.edu.ubicameudea.view.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.CharacterPickerDialog;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,18 +19,22 @@ import co.edu.ubicameudea.R;
 import co.edu.ubicameudea.domain.process.IBloqueProcess;
 import co.edu.ubicameudea.domain.process.IDepartamentoProcess;
 import co.edu.ubicameudea.domain.process.ITipoUnidadProcess;
+import co.edu.ubicameudea.domain.process.IUbicacionProcess;
 import co.edu.ubicameudea.domain.process.IUnidadProcess;
 import co.edu.ubicameudea.domain.process.impl.BloqueProcessImpl;
 import co.edu.ubicameudea.domain.process.impl.DepartamentoProcessImpl;
 import co.edu.ubicameudea.domain.process.impl.TipoUnidadProcessImpl;
+import co.edu.ubicameudea.domain.process.impl.UbicacionProcessImpl;
 import co.edu.ubicameudea.domain.process.impl.UnidadProcessImpl;
 import co.edu.ubicameudea.model.dto.Bloque;
 import co.edu.ubicameudea.model.dto.Departamento;
 import co.edu.ubicameudea.model.dto.TipoUnidad;
+import co.edu.ubicameudea.model.dto.Ubicacion;
 import co.edu.ubicameudea.model.dto.Unidad;
 import co.edu.ubicameudea.view.adapters.BloqueAdapter;
 import co.edu.ubicameudea.view.adapters.DepartamentoAdapter;
 import co.edu.ubicameudea.view.adapters.TipoUnidadAdapter;
+import co.edu.ubicameudea.view.adapters.UbicacionAdapter;
 import co.edu.ubicameudea.view.adapters.UnidadAdapter;
 
 public class AdvancedSearchActivity extends ActionBarActivity {
@@ -37,14 +43,24 @@ public class AdvancedSearchActivity extends ActionBarActivity {
     private Spinner spnUnidades;
     private Spinner spnDepartamentos;
     private Spinner spnBloques;
+    private Spinner spnUbicaciones;
     private ITipoUnidadProcess tipoUnidadProcess;
     private IDepartamentoProcess departamentoProcess;
     private IBloqueProcess bloqueProcess;
     private IUnidadProcess unidadProcess;
+    private IUbicacionProcess ubicacionProcess;
     private TipoUnidadAdapter tipoUnidadAdapter;
+    private UbicacionAdapter ubicacionAdapter;
     private BloqueAdapter bloqueAdapter;
     private UnidadAdapter unidadAdapter;
     private DepartamentoAdapter departamentoAdapter;
+    private List<TipoUnidad> tiposUnidad;
+    private List<Unidad> unidades;
+    private List<Departamento> departamentos;
+    private Integer idUnidad;
+    private Integer idDepartamento;
+    private Integer idBloque;
+    private Ubicacion ubicacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +71,7 @@ public class AdvancedSearchActivity extends ActionBarActivity {
         departamentoProcess = new DepartamentoProcessImpl(this);
         bloqueProcess = new BloqueProcessImpl(this);
         unidadProcess = new UnidadProcessImpl(this);
+        ubicacionProcess = new UbicacionProcessImpl(this);
 
         initComponents();
     }
@@ -64,8 +81,9 @@ public class AdvancedSearchActivity extends ActionBarActivity {
         this.spnUnidades = (Spinner) super.findViewById(R.id.advanced_search_spnUnidades);
         this.spnDepartamentos = (Spinner) super.findViewById(R.id.advanced_search_spnDepartamentos);
         this.spnBloques = (Spinner) super.findViewById(R.id.advanced_search_spnBloques);
+        this.spnUbicaciones = (Spinner) super.findViewById(R.id.advanced_search_spnUbicaciones);
 
-        List<TipoUnidad> tiposUnidad = tipoUnidadProcess.findAll();
+        tiposUnidad = tipoUnidadProcess.findAll();
 
         tipoUnidadAdapter = new TipoUnidadAdapter(getBaseContext(),
                 R.layout.layout_item_tipo_unidad, tiposUnidad);
@@ -76,17 +94,33 @@ public class AdvancedSearchActivity extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
                 Integer idTipoUnidad = Integer.parseInt(((TextView) v.findViewById(R.id.item_tipo_unidad_txvId)).getText().toString());
                 if (!idTipoUnidad.equals(null)) {
-                    List<Unidad> unidades = unidadProcess.findUnidadesByTipo(idTipoUnidad);
+                    unidades = unidadProcess.findUnidadesByTipo(idTipoUnidad);
                     unidadAdapter = new UnidadAdapter(getBaseContext(), R.layout.layout_item_unidad, unidades);
                     spnUnidades.setAdapter(unidadAdapter);
                     spnUnidades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            Integer idUnidad = Integer.parseInt(((TextView) view.findViewById(R.id.item_unidad_txvId)).getText().toString());
+                            idUnidad = unidadAdapter.getItem(i).getIdUnidad();
                             if (!idUnidad.equals(null)) {
-                                List<Departamento> departamentos = departamentoProcess.findByIdUnidad(idUnidad);
-                                departamentoAdapter = new DepartamentoAdapter(getBaseContext(), R.layout.layout_item_departamento, departamentos);
-                                spnDepartamentos.setAdapter(departamentoAdapter);
+                                departamentos = departamentoProcess.findByIdUnidad(idUnidad);
+                                if (departamentos.size() != 0) {
+                                    departamentoAdapter = new DepartamentoAdapter(getBaseContext(), R.layout.layout_item_departamento, departamentos);
+                                    spnDepartamentos.setAdapter(departamentoAdapter);
+                                    spnDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                        @Override
+                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                            idDepartamento = departamentoAdapter.getItem(i).getDepartamentoId();
+                                            buscarUbicaciones();
+                                        }
+
+                                        @Override
+                                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                        }
+                                    });
+
+                                }
+                                buscarUbicaciones();
                             }
                         }
 
@@ -108,10 +142,52 @@ public class AdvancedSearchActivity extends ActionBarActivity {
         });
 
         List<Bloque> bloques = bloqueProcess.findAllBloques();
-
         bloqueAdapter = new BloqueAdapter(getBaseContext(),
                 R.layout.layout_item_bloque, bloques);
         spnBloques.setAdapter(bloqueAdapter);
+        spnBloques.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                idBloque = bloqueAdapter.getItem(i).getIdBloque();
+                buscarUbicaciones();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        Button btnVer = (Button) super.findViewById(R.id.advanced_search_btnVer);
+        btnVer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UdeaMapActivity udeaMapActivity = new UdeaMapActivity();
+                Intent intent = new Intent(getBaseContext(), udeaMapActivity.getClass());
+                intent.putExtra("ubicacion", ubicacion);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void buscarUbicaciones() {
+        if((idUnidad != null)&& (idDepartamento != null)&&(idBloque != null)) {
+            List<Ubicacion> ubicaciones = ubicacionProcess.findUbicacion(idUnidad, idDepartamento, idBloque);
+            ubicacionAdapter = new UbicacionAdapter(getBaseContext(), R.layout.layout_item_ubicacion, ubicaciones);
+            spnUbicaciones.setAdapter(ubicacionAdapter);
+            spnUbicaciones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    ubicacion = ubicacionAdapter.getItem(i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        }
     }
 
 

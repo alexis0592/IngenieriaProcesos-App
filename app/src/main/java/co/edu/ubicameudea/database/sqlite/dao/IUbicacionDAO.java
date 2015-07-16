@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IUbicacionDAO {
 
-    public List<ContentValues> findUbicationByBloqueAndOffice(String bloque, String numOffice);
+    public List<ContentValues> findUbicationByBloqueAndOffice(int bloque, int numOffice);
 
     public List<ContentValues> findUbicacion(int idUnidad, int idDepartamento, int idBloque);
 }

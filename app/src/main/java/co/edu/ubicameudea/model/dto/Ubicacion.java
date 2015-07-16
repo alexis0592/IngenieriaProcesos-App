@@ -1,75 +1,77 @@
 package co.edu.ubicameudea.model.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Alexis on 18/06/15.
  */
-public class Ubicacion {
+public class Ubicacion implements Serializable{
 
-    private int ubicacionId;
-    private Bloque bloqueId;
-    private String oficina;
-    private double latitud;
-    private double longitud;
-    private Departamento departamento;
-    private Unidad unidad;
+    private Integer ubicacionId;
+    private Integer bloqueId;
+    private Integer oficina;
+    private Double latitud;
+    private Double longitud;
+    private Integer departamentoId;
+    private Integer unidadId;
 
     public Ubicacion(){
         super();
     }
 
-    public int getUbicacionId() {
+    public Integer getUbicacionId() {
         return ubicacionId;
     }
 
-    public void setUbicacionId(int ubicacionId) {
+    public void setUbicacionId(Integer ubicacionId) {
         this.ubicacionId = ubicacionId;
     }
 
-    public Bloque getBloqueId() {
+    public Integer getBloqueId() {
         return bloqueId;
     }
 
-    public void setBloqueId(Bloque bloqueId) {
+    public void setBloqueId(Integer bloqueId) {
         this.bloqueId = bloqueId;
     }
 
-    public String getOficina() {
+    public Integer getOficina() {
         return oficina;
     }
 
-    public void setOficina(String oficina) {
+    public void setOficina(Integer oficina) {
         this.oficina = oficina;
     }
 
-    public double getLatitud() {
+    public Double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(double latitud) {
+    public void setLatitud(Double latitud) {
         this.latitud = latitud;
     }
 
-    public double getLongitud() {
+    public Double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(double longitud) {
+    public void setLongitud(Double longitud) {
         this.longitud = longitud;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public Integer getDepartamentoId() {
+        return departamentoId;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setDepartamentoId(Integer departamentoId) {
+        this.departamentoId = departamentoId;
     }
 
-    public Unidad getUnidad() {
-        return unidad;
+    public Integer getUnidadId() {
+        return unidadId;
     }
 
-    public void setUnidad(Unidad unidad) {
-        this.unidad = unidad;
+    public void setUnidadId(Integer unidadId) {
+        this.unidadId = unidadId;
     }
 }

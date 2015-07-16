@@ -52,8 +52,11 @@ public class DepartamentoProcessImpl implements IDepartamentoProcess {
 
         List<Departamento> list = new ArrayList<Departamento>();
         try {
-
-            List<ContentValues> contentValuesList = this.departamentoDAO.findByIdUnidad(idUnidad);
+            List<ContentValues> contentValuesList = null;
+            if(idUnidad != -1)
+                contentValuesList = this.departamentoDAO.findByIdUnidad(idUnidad);
+            else
+                contentValuesList = this.departamentoDAO.findAll();
 
             for (ContentValues contentValue : contentValuesList) {
                 list.add(this.convertContentValueToDto(contentValue));

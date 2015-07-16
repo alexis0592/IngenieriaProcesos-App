@@ -18,12 +18,21 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editTextsearch"
-            android:hint="Ingrese ubicación"
+            android:id="@+id/main_etxBloque"
+            android:hint="Bloque"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:textColorHint="#FFFFFF"/>
+            android:textColorHint="#FFFFFF"
+            android:inputType="number"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_etxSalon"
+            android:hint="Salón u oficina"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:textColorHint="#FFFFFF"
+            android:inputType="number"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -31,7 +40,6 @@
             android:id="@+id/goMapButton"
             android:src="@android:drawable/ic_menu_search"
             android:background="#000000"
-            android:onClick="viewMapClick"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="8dp"/>
 

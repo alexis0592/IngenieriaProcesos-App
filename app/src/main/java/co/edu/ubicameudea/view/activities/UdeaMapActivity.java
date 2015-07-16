@@ -1,6 +1,7 @@
 package co.edu.ubicameudea.view.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,13 +10,20 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
 import co.edu.ubicameudea.R;
+import co.edu.ubicameudea.model.dto.Ubicacion;
 
 public class UdeaMapActivity extends Activity implements OnMapReadyCallback {
+
+    private Ubicacion ubicacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_udea_map);
+
+        Intent intent = getIntent();
+        ubicacion = new Ubicacion();
+        ubicacion = (Ubicacion) intent.getSerializableExtra("ubicacion");
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -47,9 +55,11 @@ public class UdeaMapActivity extends Activity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(6.268267, -75.568064), 18));
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                new LatLng(ubicacion.getLatitud(), ubicacion.getLongitud()), 18));
+                map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         map.setMyLocationEnabled(true);
-        map.addMarker(new MarkerOptions().position(new LatLng(6.267634,  -75.567612)).title("18-325"));
+        map.addMarker(new MarkerOptions().position(new LatLng(ubicacion.getLatitud(),
+                ubicacion.getLongitud())).title(ubicacion.getBloqueId().toString() + " - " + ubicacion.getOficina().toString()));
+
     }
 }

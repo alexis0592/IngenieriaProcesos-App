@@ -10,4 +10,6 @@
     <string name="text_departamentos">Departamentos: </string>
     <string name="text_bloques">Bloques:</string>
     <string name="message_seleccione_filtros">Seleccione las opciones de búsqueda para encontrar una ubicación.</string>
+    <string name="message_seleccione_ubicacion">Se han encontrado los siguientes lugares, seleccione uno y visualice en el mapa su ubicación:</string>
+    <string name="text_ver_ubicacion">Ver ubicación</string>
 </resources>

@@ -2,28 +2,25 @@ package co.edu.ubicameudea.view.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-
-import java.util.List;
+import android.widget.Toast;
 
 import co.edu.ubicameudea.R;
-
-import co.edu.ubicameudea.domain.process.impl.BloqueProcessImpl;
 import co.edu.ubicameudea.domain.process.impl.UbicacionProcessImpl;
-import co.edu.ubicameudea.model.dto.Bloque;
 import co.edu.ubicameudea.model.dto.Ubicacion;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private ImageView imgMapButton;
-    private EditText editText;
+    private EditText etxBloque, etxSalon;
+    private ImageView btnVer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +29,51 @@ public class MainActivity extends ActionBarActivity {
         initComponents();
     }
 
-    public void initComponents(){
+    public void initComponents() {
         //BloqueProcessImpl bloqueProcess = new BloqueProcessImpl(this.getApplicationContext());
-        this.imgMapButton = (ImageView)super.findViewById(R.id.goMapButton);
-        this.editText = (EditText)super.findViewById(R.id.editTextsearch);
-        this.editText.setTextColor(Color.parseColor("#FFFFFF"));
-        //List<Bloque> listBloque = bloqueProcess.findAllBloques();
-        //UbicacionProcessImpl ubicacionProcess = new UbicacionProcessImpl(this.getApplicationContext());
-        //Ubicacion u = ubicacionProcess.finUbicacionByBloqAndOffice("19", "201");
+        this.etxBloque = (EditText) super.findViewById(R.id.main_etxBloque);
+        this.etxBloque.setTextColor(Color.parseColor("#FFFFFF"));
+        this.etxSalon = (EditText) super.findViewById(R.id.main_etxSalon);
+        this.etxSalon.setTextColor(Color.parseColor("#FFFFFF"));
+
+        this.imgMapButton = (ImageView) super.findViewById(R.id.goMapButton);
+        imgMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if ((etxBloque.equals(null)) || (etxBloque.equals(""))) {
+                    Toast.makeText(getBaseContext(), "Debe ingresar un bloque.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if ((etxSalon.equals(null)) || (etxSalon.equals(""))) {
+                    Toast.makeText(getBaseContext(), "Debe ingresar un salón u oficina.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                try {
+                    Integer idBloque = Integer.parseInt(etxBloque.getText().toString());
+                    Integer idSalon = Integer.parseInt(etxSalon.getText().toString());
+
+                    UbicacionProcessImpl ubicacionProcess = new UbicacionProcessImpl(getBaseContext());
+                    Ubicacion ubicacion = ubicacionProcess.finUbicacionByBloqAndOffice(idBloque, idSalon);
+
+                    if (ubicacion.getUbicacionId() != null) {
+                        UdeaMapActivity udeaMapActivity = new UdeaMapActivity();
+                        Intent intent = new Intent(getBaseContext(), udeaMapActivity.getClass());
+                        intent.putExtra("ubicacion", ubicacion);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getBaseContext(), "El lugar no ha sido encontrado.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getBaseContext(), "El bloque, salón u oficina debe ser un número.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        });
     }
 
-
-
-    public void viewMapClick(View view){
-        UdeaMapActivity mapActivity = new UdeaMapActivity();
-        startActivity(new Intent(this, mapActivity.getClass()));
-    }
-
-    public void advancedSearchClick(View view){
+    public void advancedSearchClick(View view) {
         AdvancedSearchActivity advancedSearchActivity = new AdvancedSearchActivity();
         startActivity(new Intent(this, advancedSearchActivity.getClass()));
     }

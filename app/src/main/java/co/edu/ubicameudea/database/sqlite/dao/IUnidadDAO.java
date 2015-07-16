@@ -12,4 +12,6 @@ import co.edu.ubicameudea.model.dto.Unidad;
 public interface IUnidadDAO {
 
     public List<ContentValues> findUnidadesByTipo(int idTipo);
+
+    public List<ContentValues> findAll();
 }

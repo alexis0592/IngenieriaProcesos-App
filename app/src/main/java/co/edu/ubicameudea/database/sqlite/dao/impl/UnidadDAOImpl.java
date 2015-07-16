@@ -41,9 +41,30 @@ public class UnidadDAOImpl implements IUnidadDAO {
 
         SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
 
-        String query = String.format("SELECT * FROM %s WHERE %s = %s ORDER BY %s",
+        String query = String.format("SELECT * FROM %s WHERE %s = %s OR %s = %s ORDER BY %s",
                 UnidadContract.TABLE_NAME,
                 UnidadContract.Column.ID_TIPO_UNIDAD, idTipo,
+                UnidadContract.Column.ID_TIPO_UNIDAD, -1,
+                UnidadContract.Column.NOMBRE);
+
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        String[]columns = new String[]{ UnidadContract.Column.ID_UNIDAD,
+                UnidadContract.Column.NOMBRE, UnidadContract.Column.ID_TIPO_UNIDAD };
+        List<ContentValues> contentValuesList = this.cursorToContentValues(cursor, columns);
+
+        cursor.close();
+
+        return contentValuesList;
+    }
+
+    @Override
+    public List<ContentValues> findAll(){
+        Log.i(TAG, "findAll");
+
+        SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
+
+        String query = String.format("SELECT * FROM %s ORDER BY %s",
+                UnidadContract.TABLE_NAME,
                 UnidadContract.Column.NOMBRE);
 
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);

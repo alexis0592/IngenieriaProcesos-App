@@ -37,18 +37,19 @@ public class UbicacionDAOImpl implements IUbicacionDAO {
     }
 
     @Override
-    public List<ContentValues> findUbicationByBloqueAndOffice(String bloque, String numOffice) {
+    public List<ContentValues> findUbicationByBloqueAndOffice(int bloque, int numOffice) {
         Log.i(TAG, "findUbicationByBloqueAndOffice");
 
         SQLiteDatabase sqLiteDatabase = accessorSQLiteOpenHelper.getReadableDatabase();
 
-        String query = String.format("SELECT %s, %s FROM %s, %s WHERE %s = %s AND %s == %s AND %s == %s",
-                UbicacionContract.Column.LATITUD, UbicacionContract.Column.LONGITUD, UbicacionContract.TABLE_NAME,
-                BloqueContract.TABLE_NAME, UbicacionContract.Column.ID_BLOQUE, BloqueContract.Column.ID_BLOQUE,
-                BloqueContract.Column.NUMERO,bloque, UbicacionContract.Column.OFICINA, numOffice);
+        String query = String.format("SELECT * FROM %s WHERE %s = %s AND %s = %s",
+                UbicacionContract.TABLE_NAME, UbicacionContract.Column.ID_BLOQUE, bloque, UbicacionContract.Column.OFICINA, numOffice);
 
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
-        String[]columns = new String[]{UbicacionContract.Column.LATITUD, UbicacionContract.Column.LONGITUD};
+        String[]columns = new String[]{UbicacionContract.Column.ID_BLOQUE, UbicacionContract.Column.ID_DEPARTAMENTO,
+                UbicacionContract.Column.ID_UBICACION, UbicacionContract.Column.ID_UNIDAD,
+                UbicacionContract.Column.OFICINA, UbicacionContract.Column.LATITUD,
+                UbicacionContract.Column.LONGITUD};
         List<ContentValues> contentValuesList = this.cursorToContentValues(cursor, columns);
 
         cursor.close();
@@ -67,12 +68,15 @@ public class UbicacionDAOImpl implements IUbicacionDAO {
                         "((%s = %s) OR (%s = %s)) AND " +
                         "((%s = %s) OR (%s = %s))",
                 UbicacionContract.TABLE_NAME,
-                UbicacionContract.Column.ID_BLOQUE, -1, UbicacionContract.Column.ID_BLOQUE, idBloque,
-                UbicacionContract.Column.ID_DEPARTAMENTO, -1, UbicacionContract.Column.ID_DEPARTAMENTO, idDepartamento,
-                UbicacionContract.Column.ID_UNIDAD, -1, UbicacionContract.Column.ID_UNIDAD, idUnidad);
+                idBloque, -1, UbicacionContract.Column.ID_BLOQUE, idBloque,
+                idDepartamento, -1, UbicacionContract.Column.ID_DEPARTAMENTO, idDepartamento,
+                idUnidad, -1, UbicacionContract.Column.ID_UNIDAD, idUnidad);
 
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
-        String[]columns = new String[]{UbicacionContract.Column.LATITUD, UbicacionContract.Column.LONGITUD};
+        String[]columns = new String[]{UbicacionContract.Column.ID_BLOQUE, UbicacionContract.Column.ID_DEPARTAMENTO,
+                UbicacionContract.Column.ID_UBICACION, UbicacionContract.Column.ID_UNIDAD,
+                UbicacionContract.Column.OFICINA, UbicacionContract.Column.LATITUD,
+                UbicacionContract.Column.LONGITUD};
         List<ContentValues> contentValuesList = this.cursorToContentValues(cursor, columns);
 
         cursor.close();

@@ -27,7 +27,7 @@ public class UbicacionProcessImpl implements IUbicacionProcess {
     }
 
     @Override
-    public Ubicacion finUbicacionByBloqAndOffice(String bloq, String office) {
+    public Ubicacion finUbicacionByBloqAndOffice(int bloq, int office) {
 
         Ubicacion ubicacion = new Ubicacion();
 
@@ -64,8 +64,13 @@ public class UbicacionProcessImpl implements IUbicacionProcess {
     private Ubicacion convertContentValueToUbicacion(ContentValues contentValues) throws ParseException{
         Ubicacion ubicacion = new Ubicacion();
 
+        ubicacion.setUbicacionId(contentValues.getAsInteger(UbicacionContract.Column.ID_UBICACION));
+        ubicacion.setBloqueId(Integer.parseInt(contentValues.getAsString(UbicacionContract.Column.ID_BLOQUE)));
+        ubicacion.setDepartamentoId(Integer.parseInt(contentValues.getAsString(UbicacionContract.Column.ID_DEPARTAMENTO)));
+        ubicacion.setUnidadId(Integer.parseInt(contentValues.getAsString(UbicacionContract.Column.ID_UNIDAD)));
         ubicacion.setLatitud(Double.parseDouble(contentValues.getAsString(UbicacionContract.Column.LATITUD)));
         ubicacion.setLongitud(Double.parseDouble(contentValues.getAsString(UbicacionContract.Column.LONGITUD)));
+        ubicacion.setOficina(Integer.parseInt(contentValues.getAsString(UbicacionContract.Column.OFICINA)));
 
         return ubicacion;
     }

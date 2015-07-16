@@ -33,8 +33,11 @@ public class UnidadProcessImpl implements IUnidadProcess{
 
         List<Unidad> list = new ArrayList<Unidad>();
         try {
-
-            List<ContentValues> contentValuesList = this.tipoUnidadDAO.findUnidadesByTipo(idTipo);
+            List<ContentValues> contentValuesList = null;
+            if(idTipo != -1)
+                contentValuesList = this.tipoUnidadDAO.findUnidadesByTipo(idTipo);
+            else
+                contentValuesList = this.tipoUnidadDAO.findAll();
 
             for (ContentValues contentValue : contentValuesList) {
                 list.add(this.convertContentValueToDto(contentValue));
@@ -49,7 +52,7 @@ public class UnidadProcessImpl implements IUnidadProcess{
     private Unidad convertContentValueToDto(ContentValues contentValues) throws ParseException {
         Unidad unidad = new Unidad();
 
-        unidad.setIdUnidad(Integer.parseInt(contentValues.getAsString(UnidadContract.Column.ID_TIPO_UNIDAD)));
+        unidad.setIdUnidad(Integer.parseInt(contentValues.getAsString(UnidadContract.Column.ID_UNIDAD)));
         unidad.setNombre(contentValues.getAsString(UnidadContract.Column.NOMBRE));
 
         return unidad;
